@@ -1,1 +1,3 @@
-console.log("hello backend, I am here to conquer the world of node.js");
+const person = require("./person.js");
+
+console.log(person);
