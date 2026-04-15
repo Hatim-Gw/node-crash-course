@@ -33,3 +33,17 @@ fs.readFile(__dirname + "/test/hello.txt", "utf8", (err, data) => {
   if (err) throw err;
   console.log(data);
 });
+
+// delete the file
+
+fs.unlink(__dirname + "/test/hello.txt", (err) => {
+  if (err) throw err;
+  console.log("file deleted successfully");
+});
+
+// delete the directory
+
+fs.rmdir(__dirname + "/test", (err) => {
+  if (err) throw err;
+  console.log("directory deleted successfully");
+});
