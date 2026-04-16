@@ -1,3 +1,9 @@
-const person = require("./person.js");
+const Logger = require("./logger");
 
-console.log(person);
+const logger = new Logger();
+
+logger.on("message", (data) => {
+  console.log(`Called Listener: ${data.id}: ${data.msg}`);
+});
+
+logger.log("hello imit");
