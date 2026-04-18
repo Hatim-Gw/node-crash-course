@@ -14,16 +14,11 @@ const httpServer = http.createServer((req, res) => {
       },
     );
   }
-  if (req.url === "/about") {
-    fs.readFile(
-      path.join(__dirname, "public", "about.html"),
-      (err, content) => {
-        if (err) throw err;
+  if (req.url === "/api/users") {
+    const users = [{ name: "hatim, age: 25" }, { name: "John, age: 30" }];
 
-        res.setHeader("Content-Type", "text/html");
-        res.end(content);
-      },
-    );
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(users));
   }
 });
 
