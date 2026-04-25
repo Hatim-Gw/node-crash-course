@@ -1,49 +1,31 @@
-const fs = require("fs");
-
+const fs = require("fs").promises;
 const path = require("path");
 
-/*
-fs.mkdir(__dirname + "/test", (err) => {
-  if (err) throw err;
-  console.log("directory created successfully");
-});
-*/
+const testDir = path.join(__dirname, "test");
+const filePath = path.join(testDir, "hello.txt");
 
-// create a file and write data to it
+const runFsDemo = async () => {
+  try {
+    await fs.mkdir(testDir, { recursive: true });
+    console.log("directory created successfully");
 
-fs.writeFile(__dirname + "/test/hello.txt", "hello world test", (error) => {
-  if (error) throw error;
+    await fs.writeFile(filePath, "hello world test");
+    console.log("file created and data written successfully");
 
-  console.log("file created and data written successfully");
-  // append data to the file
+    await fs.appendFile(filePath, "\nExtra data is appended");
+    console.log("appended data written successfully");
 
-  fs.appendFile(
-    __dirname + "/test/hello.txt",
-    "\nExtra data is appended",
-    (error) => {
-      if (error) throw error;
-      console.log("appended data written successfully");
-    },
-  );
-});
+    const data = await fs.readFile(filePath, "utf8");
+    console.log(data);
 
-//read data from the file
+    await fs.unlink(filePath);
+    console.log("file deleted successfully");
 
-fs.readFile(__dirname + "/test/hello.txt", "utf8", (err, data) => {
-  if (err) throw err;
-  console.log(data);
-});
+    await fs.rm(testDir);
+    console.log("directory deleted successfully");
+  } catch (err) {
+    console.error("Filesystem demo failed:", err.message);
+  }
+};
 
-// delete the file
-
-fs.unlink(__dirname + "/test/hello.txt", (err) => {
-  if (err) throw err;
-  console.log("file deleted successfully");
-});
-
-// delete the directory
-
-fs.rmdir(__dirname + "/test", (err) => {
-  if (err) throw err;
-  console.log("directory deleted successfully");
-});
+runFsDemo();

@@ -23,13 +23,8 @@ console.log(platSpec);
 
 // ge the path format on POSIX : / and Windows : \
 // more info : https://nodejs.org/dist/latest-v11.x/docs/api/path.html#path_path_format_pathobject
-const pathformat = path.format({
-  dir: pathjoin,
-  root: pathjoin,
-  base: pathjoin,
-  name: pathjoin,
-  ext: pathjoin,
-});
+const parsedPath = path.parse(__filename);
+const pathformat = path.format(parsedPath);
 
 console.log(pathformat);
 
